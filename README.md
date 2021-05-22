@@ -1,2 +1,2 @@
 # backend
-Backend project for the course Codo a Codo.
+Backend project for the course Codo a Codo
