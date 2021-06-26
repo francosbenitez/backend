@@ -32,7 +32,7 @@ def read_query(connection, query):
 # connect to database
 connection = create_db_connection("localhost", "root", "1234", "world")
         
-# queries and transform table to dataframe 
+# transform one database table to dataframe 
 q1 = """
 SELECT *
 FROM COUNTRY;
