@@ -27,9 +27,9 @@ def create():
 def storage():
     _nombre=request.form['txtNombre'] 
     _correo=request.form['txtCorreo'] 
-    _foto=request.form['txtFoto']
+    _foto=request.files['txtFoto']
     sql = "INSERT INTO `sistema`.`pacientes` (`id`, `nombre`, `correo`, `foto`) VALUES (NULL, %s, %s, %s);" 
-    datos=(_nombre,_correo,_foto)
+    datos=(_nombre,_correo,_foto.filename)
     conn = mysql.connect()
     cursor = conn.cursor()
     cursor.execute(sql, datos)                      # join the sql and datos variables 
