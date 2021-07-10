@@ -1,0 +1,20 @@
+<h1>Formulario para editar</h1>
+{% for paciente in pacientes %}
+<form method="post" action="/store" enctype="multipart/form-data">
+    ID
+    <input type="text" value="{{ paciente[0] }}" name="txtID" id="txtID">
+    Nombre
+    <input type="text" value="{{ paciente[1] }}" name="txtNombre" id="txtNombre">
+    <br>
+    Correo:
+    <input type="text" value="{{ paciente[2] }}" name="txtCorreo" id="txtCorreo">
+    <br>
+    Foto
+    {{ paciente[3] }}
+    <input type="file" name="txtFoto" id="txtFoto">
+    <br>
+    <input type="submit" value="Agregar">
+    </form>
+{% endfor %}
+
+

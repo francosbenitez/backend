@@ -12,9 +12,9 @@
         <thead class="thead-light">
             <tr>
                 <th>#</th>
-                <th>Foto</th>
                 <th>Nombre</th>
                 <th>Correo</th>
+                <th>Foto</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -22,10 +22,11 @@
             {% for paciente in pacientes %}
             <tr>
                 <td>{{paciente[0]}}</td>
-                <td>{{paciente[3]}}</td>
                 <td>{{paciente[1]}}</td>
                 <td>{{paciente[2]}}</td>
-                <td>Editar | 
+                <td>{{paciente[3]}}</td>
+                <td>
+                    <a href="/edit/{{paciente[0]}}">Editar</a> | 
                     <a href="/destroy/{{paciente[0]}}">Eliminar</a>
                 </td>
             </tr>
