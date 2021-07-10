@@ -1,10 +1,22 @@
 from flask import Flask                             # import Flask
 from flask import render_template                   # render for templates
-from flaskext.mysql import MySQL
+from flaskext.mysql import MySQL                    # connect to database
 
 app = Flask(__name__)                               # create the application
-@app.route("/")                                     # routing so that the user enters the root
+mysql = MySQL()                                     # connecting to the database
+app.config['MYSQL_DATABASE_HOST']='localhost'
+app.config['MYSQL_DATABASE_USER']='root'
+app.config['MYSQL_DATABASE_PASSWORD']='1234'
+app.config['MYSQL_DATABASE_BD']='sistema'
+mysql.init_app(app)                                 # create the connection 
+
+@app.route("/")                                     # routing so that user enters root
 def index():
+    sql="INSERT INTO `sistema`.`pacientes` (`id`, `nombre`, `correo`, `foto`) VALUES (NULL, 'Juan Pablo', 'juanpablo@gmail.com', 'juanpablo.jpg');"
+    conn=mysql.connect()                            # connect to mysql.init_app(app)
+    cursor=conn.cursor()                            # store what runs
+    cursor.execute(sql)                             # run the SQL statement
+    conn.commit()                                   # close the connection
     return render_template("pacientes/index.html")  # identify the folder and the html file
 
 if __name__=="__main__":                             
