@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <title>Hola Flask!</title>
+    <title>Flask CRUD Application</title>
 </head>
 <body>
-    <h1>Hello World!</h1>
+    <h1>Flask CRUD Application</h1>
     <table class="table table-light">
         <thead class="thead-light">
             <tr>
@@ -25,7 +25,9 @@
                 <td>{{paciente[3]}}</td>
                 <td>{{paciente[1]}}</td>
                 <td>{{paciente[2]}}</td>
-                <td>Editar | Borrar</td>
+                <td>Editar | 
+                    <a href="/destroy/{{paciente[0]}}">Eliminar</a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
