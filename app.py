@@ -3,6 +3,7 @@ from flask import render_template, request, redirect
 from flaskext.mysql import MySQL                    
 from datetime import datetime
 import os 
+from flask import send_from_directory
 
 app = Flask(__name__)                               
 mysql = MySQL()                                     
@@ -14,6 +15,10 @@ mysql.init_app(app)
 
 folder = os.path.join("uploads")
 app.config["folder"] = folder
+
+@app.route("/uploads/<nombreFoto>")
+def uploads(nombreFoto):
+    return send_from_directory(app.config["folder"], nombreFoto)
 
 @app.route("/")                                     
 def index():
@@ -91,7 +96,8 @@ def storage():
     cursor = conn.cursor()
     cursor.execute(sql, datos)                      
     conn.commit()
-    return render_template("pacientes/index.html")
+    #return render_template("pacientes/index.html")
+    return redirect('/')
 
 if __name__=="__main__":                             
     app.run(debug=True)                             
