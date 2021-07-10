@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template, request, redirect                   
 from flaskext.mysql import MySQL                    
 from datetime import datetime
+import os 
 
 app = Flask(__name__)                               
 mysql = MySQL()                                     
@@ -10,6 +11,9 @@ app.config['MYSQL_DATABASE_USER']='root'
 app.config['MYSQL_DATABASE_PASSWORD']='1234'
 app.config['MYSQL_DATABASE_BD']='sistema'
 mysql.init_app(app)                                 
+
+folder = os.path.join("uploads")
+app.config["folder"] = folder
 
 @app.route("/")                                     
 def index():
@@ -51,6 +55,16 @@ def update():
     cursor = conn.cursor()
     cursor.execute(sql, datos)
     conn.commit()
+    now = datetime.now()
+    tiempo = now.strftime("%Y%H%M%S")
+    if _foto.filename != "":
+        nuevoNombreFoto = tiempo + _foto.filename
+        _foto.save("uploads/" + nuevoNombreFoto)
+        cursor.execute("SELECT foto FROM `sistema`.`pacientes` WHERE id=%s", id)
+        fila = cursor.fetchall()
+        os.remove(os.path.join(app.config["folder"], fila[0][0]))
+        cursor.execute("UPDATE `sistema`.`pacientes` SET foto=%s WHERE id=%s", (nuevoNombreFoto, id))
+        conn.commit()
     return redirect("/")
 
 
