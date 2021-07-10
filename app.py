@@ -39,6 +39,21 @@ def edit(id):
     conn.commit()
     return render_template("pacientes/edit.html", pacientes = pacientes)
 
+@app.route("/update", methods=["POST"])
+def update():
+    _nombre = request.form["txtNombre"]
+    _correo = request.form["txtCorreo"]
+    _foto = request.files["txtFoto"]
+    id = request.form["txtID"]
+    sql = "UPDATE `sistema`.`pacientes` SET `nombre`=%s, `correo`=%s WHERE id=%s;"
+    datos = (_nombre, _correo, id)
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    cursor.execute(sql, datos)
+    conn.commit()
+    return redirect("/")
+
+
 @app.route('/create') 
 def create(): 
     return render_template('pacientes/create.html')
