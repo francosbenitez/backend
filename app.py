@@ -20,7 +20,7 @@ def index():
     pacientes = cursor.fetchall()
     print(pacientes)
     conn.commit()                                   
-    return render_template("pacientes/index.html")  
+    return render_template("pacientes/index.html", pacientes = pacientes)  
 
 @app.route('/create') 
 def create(): 
