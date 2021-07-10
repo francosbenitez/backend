@@ -30,6 +30,9 @@ def index():
 def destroy(id):
     conn = mysql.connect()
     cursor = conn.cursor()
+    cursor.execute("SELECT foto FROM `sistema`.`pacientes` WHERE id=%s", id)
+    fila = cursor.fetchall()
+    os.remove(os.path.join(app.config["folder"], fila[0][0]))
     cursor.execute("DELETE FROM `sistema`.`pacientes` WHERE id=%s", (id))
     conn.commit()
     return redirect("/")
