@@ -1,5 +1,5 @@
 from flask import Flask                             # import Flask
-from flask import render_template                   # render for templates
+from flask import render_template, request                   # render for templates & request to bring data from the user
 from flaskext.mysql import MySQL                    # connect to database
 
 app = Flask(__name__)                               # create the application
@@ -18,6 +18,23 @@ def index():
     cursor.execute(sql)                             # run the SQL statement
     conn.commit()                                   # close the connection
     return render_template("pacientes/index.html")  # identify the folder and the html file
+
+@app.route('/create') 
+def create(): 
+    return render_template('pacientes/create.html')
+
+@app.route("/store", methods=["POST"])
+def storage():
+    _nombre=request.form['txtNombre'] 
+    _correo=request.form['txtCorreo'] 
+    _foto=request.form['txtFoto']
+    sql = "INSERT INTO `sistema`.`pacientes` (`id`, `nombre`, `correo`, `foto`) VALUES (NULL, %s, %s, %s);" 
+    datos=(_nombre,_correo,_foto)
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    cursor.execute(sql, datos)                      # join the sql and datos variables 
+    conn.commit()
+    return render_template("pacientes/index.html")
 
 if __name__=="__main__":                             
     app.run(debug=True)                             # set debug mode
