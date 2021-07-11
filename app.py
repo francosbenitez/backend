@@ -1,11 +1,12 @@
 from flask import Flask                             
-from flask import render_template, request, redirect, url_for                   
+from flask import render_template, request, redirect, url_for, flash                   
 from flaskext.mysql import MySQL                    
 from datetime import datetime
 import os 
 from flask import send_from_directory
 
 app = Flask(__name__)                               
+app.secret_key="ClaveSecreta"
 mysql = MySQL()                                     
 app.config['MYSQL_DATABASE_HOST']='localhost'
 app.config['MYSQL_DATABASE_USER']='root'
@@ -29,7 +30,7 @@ def index():
     pacientes = cursor.fetchall()
     print(pacientes)
     conn.commit()                                   
-    return render_template("pacientes/index.html", pacientes = pacientes)  
+    return render_template("pacientes/index.html", pacientes=pacientes)  
 
 @app.route("/destroy/<int:id>")
 def destroy(id):
@@ -69,12 +70,11 @@ def update():
         nuevoNombreFoto = tiempo + _foto.filename
         _foto.save("uploads/" + nuevoNombreFoto)
         cursor.execute("SELECT foto FROM `sistema`.`pacientes` WHERE id=%s", id)
-        fila = cursor.fetchall()
-        os.remove(os.path.join(app.config["folder"], fila[0][0]))
+        #fila = cursor.fetchall()
+        #os.remove(os.path.join(app.config["folder"], fila[0][0]))
         cursor.execute("UPDATE `sistema`.`pacientes` SET foto=%s WHERE id=%s", (nuevoNombreFoto, id))
         conn.commit()
     return redirect("/")
-
 
 @app.route('/create') 
 def create(): 
@@ -85,6 +85,9 @@ def storage():
     _nombre = request.form['txtNombre'] 
     _correo = request.form['txtCorreo'] 
     _foto = request.files['txtFoto']
+    if _nombre == '' or _correo == '' or _foto =='': 
+        flash('Recuerda llenar los datos de los campos') 
+        return redirect(url_for('create')) 
     now = datetime.now()
     tiempo = now.strftime("%Y%H%M%S")
     if _foto.filename != "":
@@ -96,7 +99,6 @@ def storage():
     cursor = conn.cursor()
     cursor.execute(sql, datos)                      
     conn.commit()
-    #return render_template("pacientes/index.html")
     return redirect('/')
 
 if __name__=="__main__":                             
