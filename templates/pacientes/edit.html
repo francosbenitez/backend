@@ -12,7 +12,10 @@
     <input type="text" value="{{ paciente[2] }}" name="txtCorreo" id="txtCorreo">
     <br>
     Foto
+    <br>
+    <img class="img-thumbnail" width="100" src="{{ url_for("uploads", nombreFoto=paciente[3]) }}" alt="">
     {{ paciente[3] }}
+    <br>
     <input type="file" name="txtFoto" id="txtFoto">
     <br>
     <input type="submit" value="Agregar">
