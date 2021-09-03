@@ -11,7 +11,6 @@ To interact with the app, clone this repository and run the following code on th
 python
 pip install flask
 pip install Flask-MySQL
-pip install jinja2
 python app.py
 ```
 
