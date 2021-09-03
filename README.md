@@ -1,7 +1,7 @@
 # Flask CRUD Application: Project Overview 
 - Developed an application to Create, Read, Update, and Delete (CRUD) patient records.
 
-## Code and Resources Ued
+## Code and Resources Used
 - **Main Technologies:** Flask, MySQL, Python
 
 ## Interact With the App
