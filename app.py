@@ -8,9 +8,9 @@ from flask import send_from_directory
 app = Flask(__name__)                               
 app.secret_key="ClaveSecreta"
 mysql = MySQL()                                     
-app.config['MYSQL_DATABASE_HOST']='localhost'
-app.config['MYSQL_DATABASE_USER']='root'
-app.config['MYSQL_DATABASE_PASSWORD']='1234'
+app.config['MYSQL_DATABASE_HOST']='aws-simplified.cfd0h5xpluom.us-east-2.rds.amazonaws.com'
+app.config['MYSQL_DATABASE_USER']='admin'
+app.config['MYSQL_DATABASE_PASSWORD']='42334770'
 app.config['MYSQL_DATABASE_BD']='sistema'
 mysql.init_app(app)                                 
 
