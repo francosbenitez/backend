@@ -9,4 +9,4 @@
 - https://my-first-crud.herokuapp.com/
 
 ## Project Images
-![Flask application view](/view.png "Flask application")
+![Flask application view](/img.png "Flask application")
