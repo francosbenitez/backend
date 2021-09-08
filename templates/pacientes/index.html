@@ -16,33 +16,35 @@
     <title>Gestión de Pacientes</title>
 </head>
 <body>
-    <table class="table table-light">
-        <thead class="thead-light">
-            <tr>
-                <th>#</th>
-                <th>Nombre</th>
-                <th>Correo</th>
-                <th>Foto</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for paciente in pacientes %}
-            <tr>
-                <td>{{paciente[0]}}</td>
-                <td>{{paciente[1]}}</td>
-                <td>{{paciente[2]}}</td>
-                <td>
-                    <img class="thumbnail" width="100" src="uploads/{{ paciente[3] }}" alt="">
-                </td>
-                <td>
-                    <a class="btn btn-warning" href="/edit/{{paciente[0]}}">Editar</a>
-                    <a class="btn btn-danger" onclick="return confirm('¿Desea eliminar al paciente?')" href="/destroy/{{paciente[0]}}">Eliminar</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="container table-responsive py-5"> 
+        <table class="table table-light">
+            <thead class="thead-light">
+                <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Foto</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for paciente in pacientes %}
+                <tr>
+                    <td>{{paciente[0]}}</td>
+                    <td>{{paciente[1]}}</td>
+                    <td>{{paciente[2]}}</td>
+                    <td>
+                        <img class="thumbnail" width="100" src="uploads/{{ paciente[3] }}" alt="">
+                    </td>
+                    <td>
+                        <a class="btn btn-warning" href="/edit/{{paciente[0]}}">Editar</a>
+                        <a class="btn btn-danger" onclick="return confirm('¿Desea eliminar al paciente?')" href="/destroy/{{paciente[0]}}">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
 
