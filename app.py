@@ -4,7 +4,9 @@ from flaskext.mysql import MySQL
 from datetime import datetime
 import os 
 from flask import send_from_directory
+import logging
 
+logging.basicConfig(level=logging.DEBUG)
 app = Flask(__name__)                               
 app.secret_key="ClaveSecreta"
 mysql = MySQL()                                     
@@ -28,7 +30,6 @@ def index():
     cursor=conn.cursor()                            
     cursor.execute(sql)                             
     pacientes = cursor.fetchall()
-    print(pacientes)
     conn.commit()                                   
     return render_template("pacientes/index.html", pacientes=pacientes)  
 
@@ -38,7 +39,8 @@ def destroy(id):
     cursor = conn.cursor()
     cursor.execute("SELECT foto FROM `sistema`.`pacientes` WHERE id=%s", id)
     fila = cursor.fetchall()
-    os.remove(os.path.join(app.config["folder"], fila[0][0]))
+    app.logger.info(os.path.join(app.config["folder"], fila[0][0]))
+    #os.remove(os.path.join(app.config["folder"], fila[0][0]))
     cursor.execute("DELETE FROM `sistema`.`pacientes` WHERE id=%s", (id))
     conn.commit()
     return redirect("/")
@@ -85,7 +87,7 @@ def storage():
     _nombre = request.form['txtNombre'] 
     _correo = request.form['txtCorreo'] 
     _foto = request.files['txtFoto']
-    if _nombre == '' or _correo == '' or _foto =='': 
+    if _nombre == '' or _correo == '' or _foto.filename =='': 
         flash('Recuerda llenar los datos de los campos') 
         return redirect(url_for('create')) 
     now = datetime.now()
