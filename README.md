@@ -1,4 +1,4 @@
-# Flask CRUD Application: Project Overview 
+# Flask CRUD Application
 - Developed an application to Create, Read, Update, and Delete (CRUD) patient records.
 - Deployed using Amazon Web Services and Heroku.
 
